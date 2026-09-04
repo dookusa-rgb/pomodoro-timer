@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+@theme {
+  /* 見出し・数字を含む全体の基調フォント。丸みがあり温かみを出す */
+  --font-maru: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-maru);
+  }
+}

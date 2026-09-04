@@ -18,16 +18,23 @@ const FIELDS: FieldConfig[] = [
 ];
 
 export function createSettingsView(container: HTMLElement): (state: AppState) => void {
-  const wrapper = el("div", { className: "flex flex-col gap-4 rounded-3xl bg-white p-6 shadow-sm dark:bg-slate-800" });
-  wrapper.append(el("h2", { className: "text-lg font-semibold", text: "設定" }));
+  const wrapper = el("div", { className: "flex flex-col gap-6" });
+  const headingGroup = el("div", { className: "flex flex-col gap-1" });
+  headingGroup.append(
+    el("p", { className: "text-[11px] font-semibold uppercase tracking-[0.3em] text-stone-400 dark:text-stone-500", text: "Settings" }),
+    el("h2", { className: "text-xl font-bold text-stone-800 dark:text-stone-100", text: "設定" }),
+  );
+  wrapper.append(headingGroup);
 
   const inputs = new Map<keyof Settings, HTMLInputElement>();
 
   for (const field of FIELDS) {
-    const row = el("label", { className: "flex items-center justify-between gap-3 text-sm" });
+    const row = el("label", {
+      className: "flex items-center justify-between gap-3 border-b border-stone-100 py-3 text-sm text-stone-600 dark:border-stone-800 dark:text-stone-300",
+    });
     row.append(el("span", { text: field.label }));
     const input = el("input", {
-      className: "w-20 rounded-lg border border-slate-300 px-3 py-1.5 text-right dark:border-slate-600 dark:bg-slate-900",
+      className: "w-16 border-b border-transparent bg-transparent px-1 py-1 text-right text-stone-800 focus:border-stone-800 focus:outline-none dark:text-stone-100 dark:focus:border-stone-200",
       attrs: { type: "number", min: String(field.min), max: String(field.max) },
     });
     inputs.set(field.key, input);
@@ -35,9 +42,9 @@ export function createSettingsView(container: HTMLElement): (state: AppState) =>
     wrapper.append(row);
   }
 
-  const errorText = el("p", { className: "min-h-[1.25rem] text-sm text-red-500" });
+  const errorText = el("p", { className: "min-h-[1.25rem] text-sm text-rose-500 dark:text-rose-400" });
   const saveButton = el("button", {
-    className: "rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200",
+    className: "self-start rounded-md bg-stone-800 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-stone-50 transition hover:bg-stone-700 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-300",
     text: "保存",
   });
   wrapper.append(errorText, saveButton);

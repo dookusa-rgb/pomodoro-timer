@@ -10,19 +10,32 @@ import { createStatsView } from "./ui/renderStats";
 const app = document.querySelector<HTMLDivElement>("#app")!;
 
 const page = el("div", {
-  className: "mx-auto flex max-w-3xl flex-col gap-6 px-4 py-10",
+  className: "mx-auto flex max-w-3xl flex-col gap-12 px-6 py-16 sm:py-20",
 });
 
-const title = el("h1", { className: "text-center text-2xl font-bold", text: "ポモドーロ・タスクタイマー" });
+const header = el("div", { className: "flex flex-col items-center gap-3 text-center" });
+const kicker = el("p", {
+  className: "text-[11px] font-semibold uppercase tracking-[0.35em] text-stone-400 dark:text-stone-500",
+  text: "Focus · Pomodoro",
+});
+const title = el("h1", {
+  className: "text-3xl font-bold tracking-tight text-stone-800 dark:text-stone-100 sm:text-4xl",
+  text: "ポモドーロ・タスクタイマー",
+});
+const rule = el("div", { className: "h-px w-12 bg-stone-300 dark:bg-stone-700" });
+header.append(kicker, title, rule);
 
 const timerSection = el("section");
 const statsSection = el("section");
-const bottomGrid = el("div", { className: "grid gap-6 sm:grid-cols-2" });
-const taskSection = el("section");
-const settingsSection = el("section");
+const bottomGrid = el("div", {
+  className:
+    "grid gap-10 border-t border-stone-200 pt-10 dark:border-stone-800 sm:grid-cols-2 sm:gap-12 sm:divide-x sm:divide-stone-200 sm:dark:divide-stone-800",
+});
+const taskSection = el("section", { className: "sm:pr-8" });
+const settingsSection = el("section", { className: "sm:pl-8" });
 
 bottomGrid.append(taskSection, settingsSection);
-page.append(title, timerSection, statsSection, bottomGrid);
+page.append(header, timerSection, statsSection, bottomGrid);
 app.append(page);
 
 const updateTimerView = createTimerView(timerSection);
